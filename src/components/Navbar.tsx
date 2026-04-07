@@ -8,6 +8,7 @@ const NAV_ITEMS = ['About', 'Stack', 'Projects', 'Contact'] as const;
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = useState<'ES' | 'EN'>('ES');
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -38,7 +39,18 @@ export const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
+          <button
+            type="button"
+            onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
+            className="font-label uppercase text-xs tracking-widest text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg] flex items-center gap-1"
+            aria-label="Cambiar idioma"
+          >
+            <span className={language === 'EN' ? 'text-primary' : 'text-on-surface-variant'}>EN</span>
+            <span className="text-outline-variant/50">/</span>
+            <span className={language === 'ES' ? 'text-primary' : 'text-on-surface-variant'}>ES</span>
+          </button>
+          
           <span className="hidden sm:inline-block px-3 py-1 bg-primary text-on-primary font-label text-[10px] uppercase tracking-widest animate-pulse">
             Available for work
           </span>
