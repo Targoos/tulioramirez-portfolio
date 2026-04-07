@@ -1,5 +1,9 @@
 import type { Project, TechItem } from '@/types';
 
+export const STAT_VALS = ['05', '04', '03+', '∞'] as const;
+
+export const NAV_SECTIONS = ['about', 'stack', 'projects', 'contact'] as const;
+
 export const PROJECTS: Project[] = [
   {
     id: '01',

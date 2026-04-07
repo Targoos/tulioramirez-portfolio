@@ -1,0 +1,44 @@
+import { useLanguage } from "@/i18n/index.tsx";
+import { STAT_VALS } from "@/data/constants";
+
+export function AboutSection() {
+  const { t } = useLanguage();
+
+  return (
+    <section
+      id="about"
+      className="py-24 px-6 md:py-32 bg-surface/30 relative border-y border-outline-variant/10"
+    >
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div>
+          <span className="font-label text-primary text-xs uppercase tracking-[0.4em] block mb-12">
+            {t.about.sectionLabel}
+          </span>
+          <h2 className="font-serif-italic italic text-4xl md:text-6xl leading-tight text-on-surface">
+            {t.about.quoteBefore}
+            <span className="text-secondary">{t.about.quoteHighlight}</span>
+            {t.about.quoteAfter}
+          </h2>
+          <div className="mt-12 h-[1px] w-full bg-outline-variant/30" aria-hidden="true" />
+          <p className="mt-12 font-body text-lg text-on-surface-variant leading-relaxed max-w-xl">
+            {t.about.paragraph}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20">
+          {STAT_VALS.map((val, i) => (
+            <div
+              key={val}
+              className="bg-background p-8 aspect-square flex flex-col justify-between hover:bg-surface transition-colors"
+            >
+              <span className="font-headline text-6xl text-primary leading-none">{val}</span>
+              <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                {t.about.stats[i]}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/index.tsx";
+import { NAV_SECTIONS } from "@/data/constants";
 
-export const Navbar = () => {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, t, toggleLanguage } = useLanguage();
@@ -36,10 +37,10 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden md:flex gap-8 items-center justify-center">
-          {t.nav.items.map((item) => (
+          {t.nav.items.map((item, i) => (
             <a
               key={item}
-              href={`#${["about", "stack", "projects", "contact"][t.nav.items.indexOf(item)]}`}
+              href={`#${NAV_SECTIONS[i]}`}
               className="font-label uppercase text-xs tracking-tighter text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg]"
             >
               {item}
@@ -54,19 +55,11 @@ export const Navbar = () => {
             className="font-label uppercase text-xs tracking-widest text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg] flex items-center gap-1"
             aria-label={t.nav.changeLanguage}
           >
-            <span
-              className={
-                language === "EN" ? "text-primary" : "text-on-surface-variant"
-              }
-            >
+            <span className={language === "EN" ? "text-primary" : "text-on-surface-variant"}>
               EN
             </span>
             <span className="text-outline-variant/50">/</span>
-            <span
-              className={
-                language === "ES" ? "text-primary" : "text-on-surface-variant"
-              }
-            >
+            <span className={language === "ES" ? "text-primary" : "text-on-surface-variant"}>
               ES
             </span>
           </button>
@@ -110,7 +103,7 @@ export const Navbar = () => {
                 {t.nav.items.map((item, i) => (
                   <li key={item}>
                     <a
-                      href={`#${["about", "stack", "projects", "contact"][i]}`}
+                      href={`#${NAV_SECTIONS[i]}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="font-headline text-5xl text-on-surface hover:text-primary transition-colors"
                     >
@@ -125,4 +118,4 @@ export const Navbar = () => {
       </AnimatePresence>
     </nav>
   );
-};
+}
