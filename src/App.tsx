@@ -63,7 +63,7 @@ export default function App() {
             className="mb-4"
           >
             <span className="font-label text-secondary text-sm tracking-[0.3em] uppercase">
-              Digital Engineer & Architect
+              Frontend developer - Software engineer
             </span>
           </motion.div>
 
