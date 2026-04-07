@@ -1,4 +1,4 @@
-import { useLanguage } from "@/i18n/index.tsx";
+import { useLanguage } from "@/i18n";
 import { STAT_VALS } from "@/data/constants";
 
 export function AboutSection() {
@@ -7,6 +7,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
+      aria-labelledby="about-heading"
       className="py-24 px-6 md:py-32 bg-surface/30 relative border-y border-outline-variant/10"
     >
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
@@ -14,7 +15,10 @@ export function AboutSection() {
           <span className="font-label text-primary text-xs uppercase tracking-[0.4em] block mb-12">
             {t.about.sectionLabel}
           </span>
-          <h2 className="font-serif-italic italic text-4xl md:text-6xl leading-tight text-on-surface">
+          <h2
+            id="about-heading"
+            className="font-serif-italic italic text-4xl md:text-6xl leading-tight text-on-surface"
+          >
             {t.about.quoteBefore}
             <span className="text-secondary">{t.about.quoteHighlight}</span>
             {t.about.quoteAfter}
@@ -25,19 +29,19 @@ export function AboutSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20">
+        <dl className="grid grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20">
           {STAT_VALS.map((val, i) => (
             <div
               key={val}
               className="bg-background p-8 aspect-square flex flex-col justify-between hover:bg-surface transition-colors"
             >
-              <span className="font-headline text-6xl text-primary leading-none">{val}</span>
-              <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+              <dd className="font-headline text-6xl text-primary leading-none">{val}</dd>
+              <dt className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
                 {t.about.stats[i]}
-              </span>
+              </dt>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );

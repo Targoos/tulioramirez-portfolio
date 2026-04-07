@@ -7,7 +7,10 @@ export function HeroSection() {
   const { t } = useLanguage();
 
   return (
-    <header className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+    <header
+      aria-label="Hero"
+      className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden"
+    >
       <div
         className="absolute inset-0 hidden md:flex items-center justify-center z-0 opacity-10 pointer-events-none"
         aria-hidden="true"

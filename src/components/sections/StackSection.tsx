@@ -6,10 +6,10 @@ export function StackSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="stack" className="py-24 px-6 md:py-32">
+    <section id="stack" aria-labelledby="stack-heading" className="py-24 px-6 md:py-32">
       <div className="container mx-auto">
         <div className="flex items-center gap-6 mb-20">
-          <h2 className="font-headline text-5xl md:text-8xl tracking-tight">TECH_STACK</h2>
+          <h2 id="stack-heading" className="font-headline text-5xl md:text-8xl tracking-tight">TECH_STACK</h2>
           <div className="h-[1px] flex-grow bg-outline-variant/40" aria-hidden="true" />
         </div>
 

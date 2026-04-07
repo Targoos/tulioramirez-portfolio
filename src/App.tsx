@@ -16,13 +16,22 @@ import { BottomNav } from "@/components/BottomNav";
 export default function App() {
   return (
     <div className="min-h-screen">
+      {/* Skip link for keyboard / screen-reader navigation */}
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:font-label focus:text-xs focus:uppercase focus:tracking-widest"
+      >
+        Skip to content
+      </a>
       <CustomCursor />
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <StackSection />
-      <ProjectsSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <StackSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
       <Footer />
       <BottomNav />
     </div>

@@ -6,10 +6,10 @@ export function ProjectsSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="projects" className="bg-surface/10">
+    <section id="projects" aria-labelledby="projects-heading" className="bg-surface/10">
       <div className="container mx-auto px-6 py-24 md:pt-32">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
-          <h2 className="font-headline text-6xl md:text-9xl leading-[0.8] tracking-tighter">
+          <h2 id="projects-heading" className="font-headline text-6xl md:text-9xl leading-[0.8] tracking-tighter">
             SELECTED
             <br />
             <span className="text-secondary">WORKS_</span>

@@ -35,11 +35,12 @@ export function ContactSection() {
   const isSubmitting = status === "submitting";
 
   return (
-    <section id="contact" className="py-24 px-6 md:py-32 bg-background dot-matrix">
+    <section id="contact" aria-labelledby="contact-heading" className="py-24 px-6 md:py-32 bg-background dot-matrix">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
             <h2
+              id="contact-heading"
               className="font-headline leading-[0.85] mb-12 uppercase"
               style={{ fontSize: "clamp(2.5rem, 10vw, 8rem)" }}
             >
