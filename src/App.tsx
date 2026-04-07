@@ -158,17 +158,19 @@ export default function App() {
             <div className="h-[1px] flex-grow bg-outline-variant/40" aria-hidden="true" />
           </div>
 
-          <div className="flex flex-wrap gap-[1px] bg-outline-variant/20 border border-outline-variant/20">
-            {TECH_STACK.map((tech) => (
-              <div key={tech.name} className={cn('tech-tile', tech.hot ? 'tech-tile-hot' : 'tech-tile-normal')}>
-                {tech.name}
-                {tech.hot && (
-                  <sup className="text-secondary ml-1" aria-label="en crecimiento activo">
-                    ↑
-                  </sup>
-                )}
-              </div>
-            ))}
+          <div className="bg-background">
+            <div className="flex flex-wrap gap-[1px] bg-outline-variant/20 border border-outline-variant/20">
+              {TECH_STACK.map((tech) => (
+                <div key={tech.name} className={cn('tech-tile', tech.hot ? 'tech-tile-hot' : 'tech-tile-normal')}>
+                  {tech.name}
+                  {tech.hot && (
+                    <sup className="text-secondary ml-1" aria-label="en crecimiento activo">
+                      ↑
+                    </sup>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-6 font-label text-[0.65rem] text-on-surface-variant/40 uppercase tracking-widest">
