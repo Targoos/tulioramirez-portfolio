@@ -1,8 +1,38 @@
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { useLanguage } from "@/i18n/index.tsx";
+import { useLanguage } from "@/i18n";
+
+interface FormFields {
+  subject: string;
+  email: string;
+  message: string;
+}
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+const EMPTY_FIELDS: FormFields = { subject: "", email: "", message: "" };
 
 export function ContactSection() {
   const { t } = useLanguage();
+  const [fields, setFields] = useState<FormFields>(EMPTY_FIELDS);
+  const [status, setStatus] = useState<FormStatus>("idle");
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { id, value } = e.target;
+    setFields((prev) => ({ ...prev, [id]: value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("submitting");
+
+    // TODO: wire up to EmailJS / Formspree / serverless function
+    await new Promise((r) => setTimeout(r, 800));
+    setStatus("success");
+    setFields(EMPTY_FIELDS);
+  }
+
+  const isSubmitting = status === "submitting";
 
   return (
     <section id="contact" className="py-24 px-6 md:py-32 bg-background dot-matrix">
@@ -25,7 +55,10 @@ export function ContactSection() {
                 className="group flex items-center justify-between p-6 border border-outline-variant/30 hover:bg-primary hover:text-on-primary transition-all duration-300"
               >
                 <span className="font-label text-xl uppercase">WhatsApp</span>
-                <ArrowRight className="group-hover:rotate-[-45deg] transition-transform" aria-hidden="true" />
+                <ArrowRight
+                  className="group-hover:rotate-[-45deg] transition-transform"
+                  aria-hidden="true"
+                />
               </a>
               <a
                 href="mailto:tulioramirez0119@gmail.com"
@@ -40,56 +73,95 @@ export function ContactSection() {
           </div>
 
           <div className="bg-surface/50 p-8 border border-outline-variant/30">
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="relative">
-                <label
-                  htmlFor="subject"
-                  className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+            {status === "success" ? (
+              <div className="h-full flex flex-col items-center justify-center gap-4 py-16">
+                <p className="font-headline text-4xl text-primary">TRANSMISSION_SENT</p>
+                <p className="font-label text-xs uppercase tracking-widest text-on-surface-variant">
+                  I&apos;ll get back to you shortly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-6 font-label text-xs uppercase tracking-widest text-primary hover:underline"
                 >
-                  {t.contact.form.subjectLabel}
-                </label>
-                <input
-                  id="subject"
-                  type="text"
-                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30"
-                  placeholder="HEDY LAMARR"
-                />
+                  Send another →
+                </button>
               </div>
-              <div className="relative">
-                <label
-                  htmlFor="email"
-                  className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+            ) : (
+              <form className="space-y-8" onSubmit={handleSubmit} noValidate>
+                <div className="relative">
+                  <label
+                    htmlFor="subject"
+                    className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+                  >
+                    {t.contact.form.subjectLabel}
+                  </label>
+                  <input
+                    id="subject"
+                    type="text"
+                    required
+                    value={fields.subject}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
+                    placeholder="HEDY LAMARR"
+                  />
+                </div>
+                <div className="relative">
+                  <label
+                    htmlFor="email"
+                    className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+                  >
+                    {t.contact.form.emailLabel}
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={fields.email}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
+                    placeholder="HL@PROJECT_ALPHA.COM"
+                  />
+                </div>
+                <div className="relative">
+                  <label
+                    htmlFor="message"
+                    className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+                  >
+                    {t.contact.form.messageLabel}
+                  </label>
+                  <textarea
+                    id="message"
+                    required
+                    value={fields.message}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 resize-none disabled:opacity-50"
+                    placeholder="DESCRIBE THE SCOPE..."
+                    rows={4}
+                  />
+                </div>
+
+                {status === "error" && (
+                  <p
+                    role="alert"
+                    className="font-label text-[10px] uppercase tracking-widest text-red-400"
+                  >
+                    Transmission failed — please try again.
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-6 bg-primary text-on-primary font-headline text-2xl tracking-widest hover:bg-secondary transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {t.contact.form.emailLabel}
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30"
-                  placeholder="HL@PROJECT_ALPHA.COM"
-                />
-              </div>
-              <div className="relative">
-                <label
-                  htmlFor="message"
-                  className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
-                >
-                  {t.contact.form.messageLabel}
-                </label>
-                <textarea
-                  id="message"
-                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 resize-none"
-                  placeholder="DESCRIBE THE SCOPE..."
-                  rows={4}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-6 bg-primary text-on-primary font-headline text-2xl tracking-widest hover:bg-secondary transition-colors duration-300"
-              >
-                {t.contact.form.submitButton}
-              </button>
-            </form>
+                  {isSubmitting ? "TRANSMITTING..." : t.contact.form.submitButton}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
