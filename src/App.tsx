@@ -56,16 +56,21 @@ export default function App() {
         </div>
 
         <div className="relative z-10 container mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mb-4"
+          >
             <span className="font-label text-secondary text-sm tracking-[0.3em] uppercase">
               Digital Engineer & Architect
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.15, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-headline leading-[0.9] tracking-tighter flex flex-col items-center"
             style={{ fontSize: 'clamp(3.5rem, 15vw, 12rem)' }}
           >
@@ -74,9 +79,9 @@ export default function App() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-serif-italic italic text-3xl md:text-5xl mt-8 text-on-surface-variant max-w-2xl mx-auto"
           >
             "Building interfaces that think."
@@ -85,7 +90,7 @@ export default function App() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.55, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mt-12 flex flex-col md:flex-row gap-6 justify-center items-center"
           >
             <a
