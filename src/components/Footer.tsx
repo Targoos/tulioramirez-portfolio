@@ -1,11 +1,12 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
-import { useLanguage } from "@/i18n/index.tsx";
+import { useLanguage } from "@/i18n";
+import type { IconLink } from "@/types";
 
-const SOCIAL_LINKS = [
+const SOCIAL_LINKS: IconLink[] = [
   { icon: Github, href: "#", label: "GitHub" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
   { icon: Twitter, href: "#", label: "Twitter" },
-] as const;
+];
 
 export function Footer() {
   const { t } = useLanguage();

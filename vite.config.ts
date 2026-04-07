@@ -4,12 +4,12 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  // loadEnv kept here for future server-side usage (e.g. API routes).
+  // GEMINI_API_KEY must never be injected via `define` — that exposes the
+  // key in the client bundle. Use a server-side proxy instead (Phase 4).
+  void loadEnv(mode, '.', '');
   return {
     plugins: [react(), tailwindcss()],
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

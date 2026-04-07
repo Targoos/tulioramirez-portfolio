@@ -1,9 +1,58 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { es } from './es';
-import { en } from './en';
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { es } from "./es";
+import { en } from "./en";
 
-export type Language = 'ES' | 'EN';
-export type Translations = typeof es;
+export type Language = "ES" | "EN";
+
+export interface Translations {
+  nav: {
+    items: readonly string[];
+    availableForWork: string;
+    ariaLabel: string;
+    changeLanguage: string;
+    openMenu: string;
+    closeMenu: string;
+    mobileMenuLabel: string;
+    mobileMenuMobileLabel: string;
+    bottomNavLabel: string;
+  };
+  hero: {
+    tagline: string;
+    quote: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
+  about: {
+    sectionLabel: string;
+    quoteBefore: string;
+    quoteHighlight: string;
+    quoteAfter: string;
+    paragraph: string;
+    stats: readonly string[];
+  };
+  stack: {
+    activelyGrowing: string;
+  };
+  projects: {
+    clickLabel: string;
+  };
+  contact: {
+    headingLine1: string;
+    headingLine2: string;
+    headingHighlight: string;
+    form: {
+      subjectLabel: string;
+      emailLabel: string;
+      messageLabel: string;
+      submitButton: string;
+    };
+  };
+  footer: {
+    copyright: string;
+  };
+}
+
+const TRANSLATIONS: Record<Language, Translations> = { ES: es, EN: en };
 
 interface LanguageContextType {
   language: Language;
@@ -15,21 +64,19 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
-    const stored = localStorage.getItem('portfolio-lang');
-    return stored === 'EN' ? 'EN' : 'ES';
+    const stored = localStorage.getItem("portfolio-lang");
+    return stored === "EN" ? "EN" : "ES";
   });
 
   useEffect(() => {
-    localStorage.setItem('portfolio-lang', language);
-    document.documentElement.lang = language === 'ES' ? 'es' : 'en';
+    localStorage.setItem("portfolio-lang", language);
+    document.documentElement.lang = language === "ES" ? "es" : "en";
   }, [language]);
 
-  const toggleLanguage = () => setLanguage((prev) => (prev === 'ES' ? 'EN' : 'ES'));
-
-  const t = (language === 'ES' ? es : en) as Translations;
+  const toggleLanguage = () => setLanguage((prev) => (prev === "ES" ? "EN" : "ES"));
 
   return (
-    <LanguageContext.Provider value={{ language, t, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, t: TRANSLATIONS[language], toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
@@ -37,6 +84,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider');
+  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
   return ctx;
 }

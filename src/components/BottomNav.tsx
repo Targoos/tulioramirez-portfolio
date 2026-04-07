@@ -1,12 +1,13 @@
 import { Home, Layers, Terminal, Mail } from "lucide-react";
-import { useLanguage } from "@/i18n/index.tsx";
+import { useLanguage } from "@/i18n";
+import type { IconLink } from "@/types";
 
-const BOTTOM_NAV = [
+const BOTTOM_NAV: IconLink[] = [
   { icon: Home, label: "HOME", href: "#" },
   { icon: Layers, label: "WORKS", href: "#projects" },
   { icon: Terminal, label: "STACK", href: "#stack" },
   { icon: Mail, label: "MAIL", href: "#contact" },
-] as const;
+];
 
 export function BottomNav() {
   const { t } = useLanguage();
