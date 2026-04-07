@@ -18,14 +18,10 @@ import { Navbar } from '@/components/Navbar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { CustomCursor } from '@/components/CustomCursor';
 import { PROJECTS, TECH_STACK } from '@/data/constants';
+import { useLanguage } from '@/i18n/index.tsx';
 import { cn } from '@/lib/utils';
 
-const STATS = [
-  { val: '05', label: 'Years Professional Experience' },
-  { val: '04', label: 'Years in Real Product Dev' },
-  { val: '03+', label: 'Major Frameworks' },
-  { val: '∞', label: 'Intellectual Curiosity' },
-] as const;
+const STAT_VALS = ['05', '04', '03+', '∞'] as const;
 
 const SOCIAL_LINKS = [
   { icon: Github, href: '#', label: 'GitHub' },
@@ -41,6 +37,8 @@ const BOTTOM_NAV = [
 ] as const;
 
 export default function App() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen">
       <CustomCursor />
@@ -63,7 +61,7 @@ export default function App() {
             className="mb-4"
           >
             <span className="font-label text-secondary text-sm tracking-[0.3em] uppercase">
-              Frontend developer - Software engineer
+              {t.hero.tagline}
             </span>
           </motion.div>
 
@@ -84,7 +82,7 @@ export default function App() {
             transition={{ delay: 0.35, duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-serif-italic italic text-3xl md:text-5xl mt-8 text-on-surface-variant max-w-2xl mx-auto"
           >
-            "Building interfaces that think."
+            {t.hero.quote}
           </motion.p>
 
           <motion.div
@@ -97,13 +95,13 @@ export default function App() {
               href="#projects"
               className="w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-headline text-2xl tracking-wide hover:-translate-y-1 hover:-translate-x-1 transition-transform duration-200 shadow-[4px_4px_0px_#FF6B35]"
             >
-              Ver proyectos
+              {t.hero.ctaPrimary}
             </a>
             <a
               href="#contact"
               className="w-full md:w-auto px-8 py-4 border border-primary text-primary font-headline text-2xl tracking-wide hover:bg-primary/10 transition-all duration-200"
             >
-              Contacto
+              {t.hero.ctaSecondary}
             </a>
           </motion.div>
         </div>
@@ -121,28 +119,28 @@ export default function App() {
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
             <span className="font-label text-primary text-xs uppercase tracking-[0.4em] block mb-12">
-              // PROFILE_MANIFESTO
+              {t.about.sectionLabel}
             </span>
             <h2 className="font-serif-italic italic text-4xl md:text-6xl leading-tight text-on-surface">
-              "Design is not just what it looks like and feels like. Design is how it{' '}
-              <span className="text-secondary">performs</span> under pressure."
+              {t.about.quoteBefore}
+              <span className="text-secondary">{t.about.quoteHighlight}</span>
+              {t.about.quoteAfter}
             </h2>
             <div className="mt-12 h-[1px] w-full bg-outline-variant/30" aria-hidden="true" />
             <p className="mt-12 font-body text-lg text-on-surface-variant leading-relaxed max-w-xl">
-              I bridge the gap between complex engineering and fluid user experiences. Specialized in
-              high-performance web systems where every millisecond and pixel is deliberate.
+              {t.about.paragraph}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-px bg-outline-variant/20 border border-outline-variant/20">
-            {STATS.map((stat) => (
+            {STAT_VALS.map((val, i) => (
               <div
-                key={stat.label}
+                key={val}
                 className="bg-background p-8 aspect-square flex flex-col justify-between hover:bg-surface transition-colors"
               >
-                <span className="font-headline text-6xl text-primary leading-none">{stat.val}</span>
+                <span className="font-headline text-6xl text-primary leading-none">{val}</span>
                 <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                  {stat.label}
+                  {t.about.stats[i]}
                 </span>
               </div>
             ))}
@@ -164,7 +162,7 @@ export default function App() {
                 <div key={tech.name} className={cn('tech-tile', tech.hot ? 'tech-tile-hot' : 'tech-tile-normal')}>
                   {tech.name}
                   {tech.hot && (
-                    <sup className="text-secondary ml-1" aria-label="en crecimiento activo">
+                    <sup className="text-secondary ml-1" aria-label={t.stack.activelyGrowing}>
                       ↑
                     </sup>
                   )}
@@ -174,7 +172,7 @@ export default function App() {
           </div>
 
           <div className="mt-6 font-label text-[0.65rem] text-on-surface-variant/40 uppercase tracking-widest">
-            <span className="text-secondary" aria-hidden="true">↑</span> en crecimiento activo
+            <span className="text-secondary" aria-hidden="true">↑</span> {t.stack.activelyGrowing}
           </div>
         </div>
       </section>
@@ -189,7 +187,7 @@ export default function App() {
               <span className="text-secondary">WORKS_</span>
             </h2>
             <span className="font-label text-[10px] uppercase tracking-[0.3em] text-outline mb-4">
-              Click to investigate project architecture
+              {t.projects.clickLabel}
             </span>
           </div>
         </div>
@@ -210,9 +208,9 @@ export default function App() {
                 className="font-headline leading-[0.85] mb-12 uppercase"
                 style={{ fontSize: 'clamp(2.5rem, 10vw, 8rem)' }}
               >
-                CONSTRUIMOS
+                {t.contact.headingLine1}
                 <br />
-                ALGO <span className="text-primary">JUNTOS</span>
+                {t.contact.headingLine2} <span className="text-primary">{t.contact.headingHighlight}</span>
               </h2>
 
               <div className="flex flex-col gap-6 max-w-md">
@@ -242,7 +240,7 @@ export default function App() {
                     htmlFor="subject"
                     className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
                   >
-                    Subject Name
+                    {t.contact.form.subjectLabel}
                   </label>
                   <input
                     id="subject"
@@ -256,7 +254,7 @@ export default function App() {
                     htmlFor="email"
                     className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
                   >
-                    Electronic Address
+                    {t.contact.form.emailLabel}
                   </label>
                   <input
                     id="email"
@@ -270,7 +268,7 @@ export default function App() {
                     htmlFor="message"
                     className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
                   >
-                    Transmission Data
+                    {t.contact.form.messageLabel}
                   </label>
                   <textarea
                     id="message"
@@ -283,7 +281,7 @@ export default function App() {
                   type="submit"
                   className="w-full py-6 bg-primary text-on-primary font-headline text-2xl tracking-widest hover:bg-secondary transition-colors duration-300"
                 >
-                  INITIATE_HANDSHAKE
+                  {t.contact.form.submitButton}
                 </button>
               </form>
             </div>
@@ -297,7 +295,7 @@ export default function App() {
           <div className="font-headline text-3xl">TAR_01</div>
 
           <div className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/50 text-center">
-            © 2025 Tulio Abraham Ramirez | ALL_RIGHTS_RESERVED
+            {t.footer.copyright}
           </div>
 
           <div className="flex gap-6">
@@ -312,7 +310,7 @@ export default function App() {
 
       {/* Bottom Navigation (Mobile) */}
       <nav
-        aria-label="Navegación inferior"
+        aria-label={t.nav.bottomNavLabel}
         className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 bg-background/90 backdrop-blur-xl border-t border-outline-variant/20"
       >
         {BOTTOM_NAV.map(({ icon: Icon, label, href }) => (

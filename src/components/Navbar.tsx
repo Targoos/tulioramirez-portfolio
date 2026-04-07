@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const NAV_ITEMS = ['About', 'Stack', 'Projects', 'Contact'] as const;
+import { useLanguage } from '@/i18n/index.tsx';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<'ES' | 'EN'>('ES');
+  const { language, t, toggleLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -18,7 +17,7 @@ export const Navbar = () => {
 
   return (
     <nav
-      aria-label="Navegación principal"
+      aria-label={t.nav.ariaLabel}
       className={cn(
         'fixed top-0 w-full z-50 transition-all duration-300 border-b border-outline-variant/20',
         isScrolled ? 'bg-background/80 backdrop-blur-xl py-4' : 'bg-transparent py-6',
@@ -28,10 +27,10 @@ export const Navbar = () => {
         <div className="font-headline text-3xl tracking-tight text-on-surface">TAR</div>
 
         <div className="hidden md:flex gap-8 items-center">
-          {NAV_ITEMS.map((item) => (
+          {t.nav.items.map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={`#${['about', 'stack', 'projects', 'contact'][t.nav.items.indexOf(item)]}`}
               className="font-label uppercase text-xs tracking-tighter text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg]"
             >
               {item}
@@ -42,22 +41,22 @@ export const Navbar = () => {
         <div className="flex items-center gap-6">
           <button
             type="button"
-            onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
+            onClick={toggleLanguage}
             className="font-label uppercase text-xs tracking-widest text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg] flex items-center gap-1"
-            aria-label="Cambiar idioma"
+            aria-label={t.nav.changeLanguage}
           >
             <span className={language === 'EN' ? 'text-primary' : 'text-on-surface-variant'}>EN</span>
             <span className="text-outline-variant/50">/</span>
             <span className={language === 'ES' ? 'text-primary' : 'text-on-surface-variant'}>ES</span>
           </button>
-          
+
           <span className="hidden sm:inline-block px-3 py-1 bg-primary text-on-primary font-label text-[10px] uppercase tracking-widest animate-pulse">
-            Available for work
+            {t.nav.availableForWork}
           </span>
           <button
             type="button"
             className="md:hidden text-primary"
-            aria-label="Abrir menú de navegación"
+            aria-label={t.nav.openMenu}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMobileMenuOpen(true)}
@@ -73,7 +72,7 @@ export const Navbar = () => {
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Menú de navegación"
+            aria-label={t.nav.mobileMenuLabel}
             initial={{ y: '-100%' }}
             animate={{ y: 0 }}
             exit={{ y: '-100%' }}
@@ -83,17 +82,17 @@ export const Navbar = () => {
             <button
               type="button"
               className="absolute top-6 right-6 text-primary"
-              aria-label="Cerrar menú de navegación"
+              aria-label={t.nav.closeMenu}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <X size={32} aria-hidden="true" />
             </button>
-            <nav aria-label="Menú de navegación móvil">
+            <nav aria-label={t.nav.mobileMenuMobileLabel}>
               <ul className="flex flex-col items-center gap-6 list-none p-0 m-0">
-                {NAV_ITEMS.map((item) => (
+                {t.nav.items.map((item, i) => (
                   <li key={item}>
                     <a
-                      href={`#${item.toLowerCase()}`}
+                      href={`#${['about', 'stack', 'projects', 'contact'][i]}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="font-headline text-5xl text-on-surface hover:text-primary transition-colors"
                     >
