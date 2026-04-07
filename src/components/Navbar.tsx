@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useLanguage } from '@/i18n/index.tsx';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/index.tsx";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,26 +11,35 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
       aria-label={t.nav.ariaLabel}
       className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-300 border-b border-outline-variant/20',
-        isScrolled ? 'bg-background/80 backdrop-blur-xl py-4' : 'bg-transparent py-6',
+        "fixed top-0 w-full z-50 transition-all duration-300 border-b border-outline-variant/20",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-xl py-4"
+          : "bg-transparent py-6",
       )}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="font-headline text-3xl tracking-tight text-on-surface">TAR</div>
+      <div className="container mx-auto px-6 flex justify-between items-center relative">
+        <div className="flex flex-1 justify-start items-center gap-4">
+          <div className="font-headline text-3xl tracking-tight text-on-surface translate-y-[2px]">
+            TAR
+          </div>
+          <span className="hidden lg:inline-block px-3 py-1 bg-primary text-on-primary font-label text-[10px] uppercase tracking-widest animate-pulse">
+            {t.nav.availableForWork}
+          </span>
+        </div>
 
-        <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden md:flex gap-8 items-center justify-center">
           {t.nav.items.map((item) => (
             <a
               key={item}
-              href={`#${['about', 'stack', 'projects', 'contact'][t.nav.items.indexOf(item)]}`}
+              href={`#${["about", "stack", "projects", "contact"][t.nav.items.indexOf(item)]}`}
               className="font-label uppercase text-xs tracking-tighter text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg]"
             >
               {item}
@@ -38,21 +47,30 @@ export const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-1 justify-end items-center gap-6">
           <button
             type="button"
             onClick={toggleLanguage}
             className="font-label uppercase text-xs tracking-widest text-on-surface hover:text-primary transition-colors hover:skew-x-[-10deg] flex items-center gap-1"
             aria-label={t.nav.changeLanguage}
           >
-            <span className={language === 'EN' ? 'text-primary' : 'text-on-surface-variant'}>EN</span>
+            <span
+              className={
+                language === "EN" ? "text-primary" : "text-on-surface-variant"
+              }
+            >
+              EN
+            </span>
             <span className="text-outline-variant/50">/</span>
-            <span className={language === 'ES' ? 'text-primary' : 'text-on-surface-variant'}>ES</span>
+            <span
+              className={
+                language === "ES" ? "text-primary" : "text-on-surface-variant"
+              }
+            >
+              ES
+            </span>
           </button>
 
-          <span className="hidden sm:inline-block px-3 py-1 bg-primary text-on-primary font-label text-[10px] uppercase tracking-widest animate-pulse">
-            {t.nav.availableForWork}
-          </span>
           <button
             type="button"
             className="md:hidden text-primary"
@@ -73,10 +91,10 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={t.nav.mobileMenuLabel}
-            initial={{ y: '-100%' }}
+            initial={{ y: "-100%" }}
             animate={{ y: 0 }}
-            exit={{ y: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            exit={{ y: "-100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 bg-background z-[100] flex flex-col items-center justify-center gap-8 p-10"
           >
             <button
@@ -92,7 +110,7 @@ export const Navbar = () => {
                 {t.nav.items.map((item, i) => (
                   <li key={item}>
                     <a
-                      href={`#${['about', 'stack', 'projects', 'contact'][i]}`}
+                      href={`#${["about", "stack", "projects", "contact"][i]}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="font-headline text-5xl text-on-surface hover:text-primary transition-colors"
                     >
