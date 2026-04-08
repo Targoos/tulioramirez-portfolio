@@ -51,4 +51,12 @@ export const es = {
   footer: {
     copyright: '© 2025 Tulio Abraham Ramirez | TODOS_LOS_DERECHOS_RESERVADOS',
   },
+  chat: {
+    buttonLabel: 'Abrir asistente IA',
+    subtitle: 'Pregúntame sobre Tulio',
+    close: 'Cerrar chat',
+    greeting: '¡Hola! Soy el asistente del portfolio de Tulio. Pregúntame sobre su experiencia, habilidades o proyectos.',
+    placeholder: 'Escribe algo...',
+    processing: 'PROCESANDO...',
+  },
 } as const;

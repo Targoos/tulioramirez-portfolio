@@ -51,4 +51,12 @@ export const en = {
   footer: {
     copyright: '© 2025 Tulio Abraham Ramirez | ALL_RIGHTS_RESERVED',
   },
+  chat: {
+    buttonLabel: 'Open AI assistant',
+    subtitle: 'Ask me about Tulio',
+    close: 'Close chat',
+    greeting: "Hi! I'm Tulio's portfolio assistant. Ask me anything about his experience, skills, or projects.",
+    placeholder: 'Ask something...',
+    processing: 'PROCESSING...',
+  },
 } as const;

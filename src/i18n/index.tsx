@@ -51,6 +51,14 @@ export interface Translations {
   footer: {
     copyright: string;
   };
+  chat: {
+    buttonLabel: string;
+    subtitle: string;
+    close: string;
+    greeting: string;
+    placeholder: string;
+    processing: string;
+  };
 }
 
 const TRANSLATIONS: Record<Language, Translations> = { ES: es, EN: en };

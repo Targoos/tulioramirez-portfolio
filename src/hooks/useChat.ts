@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { sendChatMessage, GeminiServiceError } from "@/services/gemini";
+import { sendChatMessage, ChatServiceError } from "@/services/chat";
 
 type ChatStatus = "idle" | "loading" | "success" | "error";
 
@@ -33,7 +33,7 @@ export function useChat(): UseChatReturn {
   const send = useCallback(async (message: string) => {
     setState({ status: "loading", reply: null, error: null });
 
-    let lastError: GeminiServiceError | null = null;
+    let lastError: ChatServiceError | null = null;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
@@ -46,7 +46,7 @@ export function useChat(): UseChatReturn {
         setState({ status: "success", reply, error: null });
         return;
       } catch (error) {
-        if (error instanceof GeminiServiceError) {
+        if (error instanceof ChatServiceError) {
           lastError = error;
           // Do not retry on client errors or rate limits
           if (error.status < 500 && error.status !== 0) break;

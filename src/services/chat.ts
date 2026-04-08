@@ -1,6 +1,6 @@
 /**
  * Client-side service for calling the /api/chat proxy.
- * The API key never touches this file — it lives in the Vercel Edge Function.
+ * The API key never touches this file — it lives in the Vercel serverless function.
  */
 
 export interface ChatRequest {
@@ -16,15 +16,15 @@ export interface ChatError {
 }
 
 const CHAT_ENDPOINT = "/api/chat";
-const REQUEST_TIMEOUT_MS = 15_000;
+const REQUEST_TIMEOUT_MS = 30_000;
 
-export class GeminiServiceError extends Error {
+export class ChatServiceError extends Error {
   constructor(
     message: string,
     public readonly status: number,
   ) {
     super(message);
-    this.name = "GeminiServiceError";
+    this.name = "ChatServiceError";
   }
 }
 
@@ -44,18 +44,18 @@ export async function sendChatMessage(message: string): Promise<ChatResponse> {
 
     if (!res.ok) {
       const errorMsg = "error" in data ? data.error : "Unexpected error";
-      throw new GeminiServiceError(errorMsg, res.status);
+      throw new ChatServiceError(errorMsg, res.status);
     }
 
     return data as ChatResponse;
   } catch (error) {
-    if (error instanceof GeminiServiceError) throw error;
+    if (error instanceof ChatServiceError) throw error;
 
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new GeminiServiceError("Request timed out. Please try again.", 408);
+      throw new ChatServiceError("Request timed out. Please try again.", 408);
     }
 
-    throw new GeminiServiceError("Network error. Please check your connection.", 0);
+    throw new ChatServiceError("Network error. Please check your connection.", 0);
   } finally {
     clearTimeout(timeoutId);
   }

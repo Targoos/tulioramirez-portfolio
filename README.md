@@ -11,6 +11,7 @@
 - **"Available for Work" badge** — Live status indicator in the navbar
 - **Framer Motion animations** — Polished entrance animations across all sections
 - **Contact form** — With WhatsApp and Email quick links
+- **AI chat assistant** — Floating chat bubble powered by Groq (llama-3.1-8b-instant) that answers questions about Tulio's experience
 
 ## 🛠 Tech Stack
 
@@ -23,6 +24,8 @@
 | Animations     | Motion (Framer Motion)              |
 | Icons          | Lucide React                        |
 | Utilities      | clsx, tailwind-merge                |
+| AI             | Groq SDK (llama-3.1-8b-instant)     |
+| Deployment     | Vercel                              |
 
 ## 🚀 Getting Started
 
@@ -49,10 +52,10 @@ Copy the example file and fill in your values:
 cp .env.example .env.local
 ```
 
-| Variable        | Description                            |
-|-----------------|----------------------------------------|
-| `GEMINI_API_KEY` | Gemini AI API key (optional)          |
-| `APP_URL`        | Base URL where the app is hosted      |
+| Variable        | Description                                   |
+|-----------------|-----------------------------------------------|
+| `GROQ_API_KEY`  | Groq API key — powers the AI chat assistant   |
+| `VITE_APP_URL`  | Base URL where the app is hosted              |
 
 ### Development
 
