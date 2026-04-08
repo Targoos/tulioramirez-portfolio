@@ -40,6 +40,7 @@ export const es = {
     headingLine1: 'CONSTRUIMOS',
     headingLine2: 'ALGO',
     headingHighlight: 'JUNTOS',
+    whatsappMessage: '¡Hola Tulio! Acabo de ver tu portfolio — buen trabajo. Me interesa hablar sobre un proyecto. ¿Hablamos?',
     form: {
       subjectLabel: 'Nombre',
       emailLabel: 'Dirección Electrónica',

@@ -40,6 +40,7 @@ export interface Translations {
     headingLine1: string;
     headingLine2: string;
     headingHighlight: string;
+    whatsappMessage: string;
     form: {
       subjectLabel: string;
       emailLabel: string;

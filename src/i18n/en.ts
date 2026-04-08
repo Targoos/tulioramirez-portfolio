@@ -40,6 +40,7 @@ export const en = {
     headingLine1: "LET'S BUILD",
     headingLine2: 'SOMETHING',
     headingHighlight: 'TOGETHER',
+    whatsappMessage: "Hi Tulio! Just visited your portfolio — impressive work. I'd love to discuss a potential project. Let's connect.",
     form: {
       subjectLabel: 'Subject Name',
       emailLabel: 'Electronic Address',

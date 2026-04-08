@@ -52,7 +52,9 @@ export function ContactSection() {
 
             <div className="flex flex-col gap-6 max-w-md">
               <a
-                href="#"
+                href={`https://wa.me/5491123229692?text=${encodeURIComponent(t.contact.whatsappMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center justify-between p-6 border border-outline-variant/30 hover:bg-primary hover:text-on-primary transition-all duration-300"
               >
                 <span className="font-label text-xl uppercase">WhatsApp</span>
