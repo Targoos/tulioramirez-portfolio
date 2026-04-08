@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 interface FormFields {
+  name: string;
   subject: string;
   email: string;
   message: string;
@@ -10,7 +11,7 @@ interface FormFields {
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-const EMPTY_FIELDS: FormFields = { subject: "", email: "", message: "" };
+const EMPTY_FIELDS: FormFields = { name: "", subject: "", email: "", message: "" };
 
 export function ContactSection() {
   const { t } = useLanguage();
@@ -26,10 +27,20 @@ export function ContactSection() {
     e.preventDefault();
     setStatus("submitting");
 
-    // TODO: wire up to EmailJS / Formspree / serverless function
-    await new Promise((r) => setTimeout(r, 800));
-    setStatus("success");
-    setFields(EMPTY_FIELDS);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      setStatus("success");
+      setFields(EMPTY_FIELDS);
+    } catch {
+      setStatus("error");
+    }
   }
 
   const isSubmitting = status === "submitting";
@@ -94,6 +105,24 @@ export function ContactSection() {
               <form className="space-y-8" onSubmit={handleSubmit} noValidate>
                 <div className="relative">
                   <label
+                    htmlFor="name"
+                    className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
+                  >
+                    {t.contact.form.nameLabel}
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    required
+                    value={fields.name}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
+                    placeholder="ALAN TURING"
+                  />
+                </div>
+                <div className="relative">
+                  <label
                     htmlFor="subject"
                     className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-2"
                   >
@@ -107,7 +136,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     disabled={isSubmitting}
                     className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
-                    placeholder="HEDY LAMARR"
+                    placeholder="PROJECT_INQUIRY"
                   />
                 </div>
                 <div className="relative">

@@ -42,7 +42,8 @@ export const en = {
     headingHighlight: 'TOGETHER',
     whatsappMessage: "Hi Tulio! Just visited your portfolio — impressive work. I'd love to discuss a potential project. Let's connect.",
     form: {
-      subjectLabel: 'Subject Name',
+      nameLabel: 'Name',
+      subjectLabel: 'Subject',
       emailLabel: 'Electronic Address',
       messageLabel: 'Transmission Data',
       submitButton: 'INITIATE_HANDSHAKE',

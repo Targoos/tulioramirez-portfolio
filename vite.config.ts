@@ -13,31 +13,34 @@ function devApiPlugin(): Plugin {
     configureServer(server) {
       const env = loadEnv("development", process.cwd(), "");
       process.env.GROQ_API_KEY ??= env.GROQ_API_KEY;
+      process.env.RESEND_API_KEY ??= env.RESEND_API_KEY;
 
-      server.middlewares.use("/api/chat", async (req, res) => {
-        let body = "";
-        for await (const chunk of req) body += chunk;
+      for (const route of ["/api/chat", "/api/contact"]) {
+        server.middlewares.use(route, async (req, res) => {
+          let body = "";
+          for await (const chunk of req) body += chunk;
 
-        const webRequest = new Request("http://localhost/api/chat", {
-          method: req.method,
-          headers: { "Content-Type": "application/json" },
-          body: req.method !== "GET" ? body : undefined,
+          const webRequest = new Request(`http://localhost${route}`, {
+            method: req.method,
+            headers: { "Content-Type": "application/json" },
+            body: req.method !== "GET" ? body : undefined,
+          });
+
+          try {
+            const mod = await server.ssrLoadModule(`${route}.ts`);
+            const handler = mod.default as (req: Request) => Promise<Response>;
+            const webResponse = await handler(webRequest);
+            const data = await webResponse.json();
+
+            res.writeHead(webResponse.status, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(data));
+          } catch (err) {
+            console.error(`[dev-api] ${route}`, err);
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Dev server error" }));
+          }
         });
-
-        try {
-          const mod = await server.ssrLoadModule("/api/chat.ts");
-          const handler = mod.default as (req: Request) => Promise<Response>;
-          const webResponse = await handler(webRequest);
-          const data = await webResponse.json();
-
-          res.writeHead(webResponse.status, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(data));
-        } catch (err) {
-          console.error("[dev-api]", err);
-          res.writeHead(500, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Dev server error" }));
-        }
-      });
+      }
     },
   };
 }

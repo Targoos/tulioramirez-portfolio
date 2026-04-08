@@ -42,7 +42,8 @@ export const es = {
     headingHighlight: 'JUNTOS',
     whatsappMessage: '¡Hola Tulio! Acabo de ver tu portfolio — buen trabajo. Me interesa hablar sobre un proyecto. ¿Hablamos?',
     form: {
-      subjectLabel: 'Nombre',
+      nameLabel: 'Nombre',
+      subjectLabel: 'Asunto',
       emailLabel: 'Dirección Electrónica',
       messageLabel: 'Datos de Transmisión',
       submitButton: 'INICIAR_CONTACTO',
