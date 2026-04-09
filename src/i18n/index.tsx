@@ -60,6 +60,7 @@ export interface Translations {
     greeting: string;
     placeholder: string;
     processing: string;
+    tooltip: string;
   };
 }
 

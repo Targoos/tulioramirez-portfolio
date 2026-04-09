@@ -60,5 +60,6 @@ export const en = {
     greeting: "Hi! I'm Tulio's portfolio assistant. Ask me anything about his experience, skills, or projects.",
     placeholder: 'Ask something...',
     processing: 'PROCESSING...',
+    tooltip: "Let's talk!",
   },
 } as const;

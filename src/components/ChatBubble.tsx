@@ -155,41 +155,64 @@ export function ChatBubble() {
         )}
       </AnimatePresence>
 
-      {/* Trigger button */}
-      <motion.button
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-label={t.chat.buttonLabel}
-        aria-expanded={isOpen}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 flex items-center justify-center transition-colors duration-200 shadow-[3px_3px_0px_#FF6B35] ${
-          isOpen ? "bg-secondary text-on-secondary" : "bg-primary text-on-primary"
-        }`}
-      >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.span
-              key="x"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.15 }}
+      {/* Trigger area */}
+      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 flex items-center justify-end gap-2 sm:gap-3 pointer-events-none">
+        {/* Tooltip bubble */}
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              key="tooltip"
+              initial={{ opacity: 0, x: 10, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 10, scale: 0.9 }}
+              transition={{ delay: 2, duration: 0.4, ease: EASE }}
+              className="flex items-center pointer-events-auto origin-right cursor-pointer"
+              onClick={() => setIsOpen(true)}
             >
-              <X size={22} aria-hidden="true" />
-            </motion.span>
-          ) : (
-            <motion.span
-              key="bot"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.15 }}
-            >
-              <Bot size={22} aria-hidden="true" />
-            </motion.span>
+              <div className="bg-surface border border-primary px-3 py-1.5 font-label text-xs uppercase tracking-widest text-primary shadow-[2px_2px_0px_#E8FF47] hover:bg-primary hover:text-on-primary transition-colors">
+                {t.chat.tooltip}
+              </div>
+              <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[6px] border-l-primary -ml-[1px]" />
+            </motion.div>
           )}
         </AnimatePresence>
-      </motion.button>
+
+        {/* Trigger button */}
+        <motion.button
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label={t.chat.buttonLabel}
+          aria-expanded={isOpen}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`relative pointer-events-auto w-14 h-14 flex items-center justify-center transition-colors duration-200 shadow-[3px_3px_0px_#FF6B35] ${
+            isOpen ? "bg-secondary text-on-secondary" : "bg-primary text-on-primary"
+          }`}
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.span
+                key="x"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <X size={22} aria-hidden="true" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="bot"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <Bot size={22} aria-hidden="true" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </>
   );
 }
