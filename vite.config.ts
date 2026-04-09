@@ -28,7 +28,8 @@ function devApiPlugin(): Plugin {
 
           try {
             const mod = await server.ssrLoadModule(`${route}.ts`);
-            const handler = mod.default as (req: Request) => Promise<Response>;
+            const method = (req.method ?? "GET").toUpperCase();
+            const handler = (mod[method] ?? mod.default) as (req: Request) => Promise<Response>;
             const webResponse = await handler(webRequest);
             const data = await webResponse.json();
 

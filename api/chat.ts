@@ -10,8 +10,6 @@
 
 import Groq from "groq-sdk";
 
-export const config = { runtime: "nodejs" };
-
 const buildSystemPrompt = () => {
   const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
   return `Today's date is ${today}. Use this to calculate durations accurately when asked about experience or time at a job.
@@ -47,11 +45,7 @@ Email: tulioramirez0119@gmail.com — GitHub: github.com/Targoos`;
 const MAX_INPUT_LENGTH = 500;
 const GROQ_MODEL = "llama-3.1-8b-instant";
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") {
-    return Response.json({ error: "Method not allowed" }, { status: 405 });
-  }
-
+export async function POST(req: Request): Promise<Response> {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return Response.json({ error: "Service unavailable" }, { status: 503 });

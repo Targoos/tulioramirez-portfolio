@@ -9,8 +9,6 @@
 
 import { Resend } from "resend";
 
-export const config = { runtime: "nodejs" };
-
 const FROM = "contact@tulioramirez.com";
 const TO = "tulioramirez0119@gmail.com";
 const MAX_LENGTH = 2000;
@@ -19,11 +17,7 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") {
-    return Response.json({ error: "Method not allowed" }, { status: 405 });
-  }
-
+export async function POST(req: Request): Promise<Response> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     return Response.json({ error: "Service unavailable" }, { status: 503 });
