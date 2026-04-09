@@ -47,6 +47,7 @@ export const es = {
       emailLabel: 'Dirección Electrónica',
       messageLabel: 'Datos de Transmisión',
       submitButton: 'INICIAR_CONTACTO',
+      errorMessage: 'Transmisión fallida — por favor intentá de nuevo.',
     },
   },
   footer: {

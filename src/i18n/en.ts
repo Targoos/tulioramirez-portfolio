@@ -47,6 +47,7 @@ export const en = {
       emailLabel: 'Electronic Address',
       messageLabel: 'Transmission Data',
       submitButton: 'INITIATE_HANDSHAKE',
+      errorMessage: 'Transmission failed — please try again.',
     },
   },
   footer: {

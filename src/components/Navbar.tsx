@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/index.tsx";
 import { NAV_SECTIONS } from "@/data/constants";
+import { useScrollThreshold } from "@/hooks/useScrollThreshold";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolled = useScrollThreshold(50);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, t, toggleLanguage } = useLanguage();
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <nav

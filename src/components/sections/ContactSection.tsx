@@ -1,47 +1,10 @@
-import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/i18n";
-
-interface FormFields {
-  name: string;
-  subject: string;
-  email: string;
-  message: string;
-}
-
-type FormStatus = "idle" | "submitting" | "success" | "error";
-
-const EMPTY_FIELDS: FormFields = { name: "", subject: "", email: "", message: "" };
+import { useContactForm } from "@/hooks/useContactForm";
 
 export function ContactSection() {
   const { t } = useLanguage();
-  const [fields, setFields] = useState<FormFields>(EMPTY_FIELDS);
-  const [status, setStatus] = useState<FormStatus>("idle");
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { id, value } = e.target;
-    setFields((prev) => ({ ...prev, [id]: value }));
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("submitting");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
-      });
-
-      if (!res.ok) throw new Error("Request failed");
-
-      setStatus("success");
-      setFields(EMPTY_FIELDS);
-    } catch {
-      setStatus("error");
-    }
-  }
+  const { fields, status, errors, handleChange, handleSubmit, resetStatus } = useContactForm();
 
   const isSubmitting = status === "submitting";
 
@@ -95,7 +58,7 @@ export function ContactSection() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setStatus("idle")}
+                  onClick={resetStatus}
                   className="mt-6 font-label text-xs uppercase tracking-widest text-primary hover:underline"
                 >
                   Send another →
@@ -113,13 +76,18 @@ export function ContactSection() {
                   <input
                     id="name"
                     type="text"
-                    required
                     value={fields.name}
                     onChange={handleChange}
                     disabled={isSubmitting}
+                    aria-invalid={!!errors.name}
                     className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
                     placeholder="ALAN TURING"
                   />
+                  {errors.name && (
+                    <p role="alert" className="mt-1 font-label text-[9px] uppercase tracking-widest text-red-400">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
                 <div className="relative">
                   <label
@@ -131,13 +99,18 @@ export function ContactSection() {
                   <input
                     id="subject"
                     type="text"
-                    required
                     value={fields.subject}
                     onChange={handleChange}
                     disabled={isSubmitting}
+                    aria-invalid={!!errors.subject}
                     className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
                     placeholder="PROJECT_INQUIRY"
                   />
+                  {errors.subject && (
+                    <p role="alert" className="mt-1 font-label text-[9px] uppercase tracking-widest text-red-400">
+                      {errors.subject}
+                    </p>
+                  )}
                 </div>
                 <div className="relative">
                   <label
@@ -149,13 +122,18 @@ export function ContactSection() {
                   <input
                     id="email"
                     type="email"
-                    required
                     value={fields.email}
                     onChange={handleChange}
                     disabled={isSubmitting}
+                    aria-invalid={!!errors.email}
                     className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 disabled:opacity-50"
                     placeholder="HL@PROJECT_ALPHA.COM"
                   />
+                  {errors.email && (
+                    <p role="alert" className="mt-1 font-label text-[9px] uppercase tracking-widest text-red-400">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
                 <div className="relative">
                   <label
@@ -166,14 +144,19 @@ export function ContactSection() {
                   </label>
                   <textarea
                     id="message"
-                    required
                     value={fields.message}
                     onChange={handleChange}
                     disabled={isSubmitting}
+                    aria-invalid={!!errors.message}
                     className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary text-on-surface font-body placeholder:text-outline-variant/30 resize-none disabled:opacity-50"
                     placeholder="DESCRIBE THE SCOPE..."
                     rows={4}
                   />
+                  {errors.message && (
+                    <p role="alert" className="mt-1 font-label text-[9px] uppercase tracking-widest text-red-400">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
                 {status === "error" && (
@@ -181,7 +164,7 @@ export function ContactSection() {
                     role="alert"
                     className="font-label text-[10px] uppercase tracking-widest text-red-400"
                   >
-                    Transmission failed — please try again.
+                    {t.contact.form.errorMessage}
                   </p>
                 )}
 

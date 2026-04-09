@@ -42,10 +42,12 @@ export interface Translations {
     headingHighlight: string;
     whatsappMessage: string;
     form: {
+      nameLabel: string;
       subjectLabel: string;
       emailLabel: string;
       messageLabel: string;
       submitButton: string;
+      errorMessage: string;
     };
   };
   footer: {
