@@ -3,8 +3,8 @@ import { useLanguage } from "@/i18n";
 import type { IconLink } from "@/types";
 
 const SOCIAL_LINKS: IconLink[] = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/Targoos", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/tulioramirez/", label: "LinkedIn" },
 ];
 
 export function Footer() {
@@ -25,6 +25,8 @@ export function Footer() {
               key={label}
               href={href}
               aria-label={label}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-on-surface-variant hover:text-primary transition-colors"
             >
               <Icon size={20} aria-hidden="true" />
