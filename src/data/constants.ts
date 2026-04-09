@@ -40,19 +40,33 @@ export const PROJECTS: Project[] = [
 ];
 
 export const TECH_STACK: TechItem[] = [
-  { name: 'React', hot: false },
-  { name: 'Next.js', hot: false },
-  { name: 'Vue / Nuxt', hot: false },
-  { name: 'TypeScript', hot: false },
-  { name: 'Tailwind CSS', hot: true },
-  { name: 'Vercel AI SDK', hot: true },
-  { name: 'LangChain.js', hot: true },
-  { name: 'Supabase', hot: true },
-  { name: 'React Native', hot: true },
-  { name: 'Claude API', hot: true },
-  { name: 'OpenAI API', hot: true },
-  { name: 'Stitch UI', hot: true },
-  { name: 'Node.js', hot: false },
-  { name: 'Git · GitHub', hot: false },
+  { name: 'React.js', hot: true },   // #1 frontend en demanda
+  { name: 'Next.js', hot: true },    // SSR/SSG, muy pedido
+  { name: 'Vue.js', hot: true },     // fuerte en EU/LATAM
+  { name: 'Nuxt', hot: true },       // meta-framework Vue
+  { name: 'JavaScript', hot: false },
+  { name: 'TypeScript', hot: true }, // casi obligatorio hoy
+  { name: 'Tailwind CSS', hot: true }, // muy trendy, alta demanda
+  { name: 'SCSS / Sass', hot: false },
+  { name: 'Bootstrap', hot: false },
+  { name: 'Styled Components', hot: false },
+  { name: 'Redux', hot: false },
+  { name: 'Vuex', hot: false },
+  { name: 'Pinia', hot: true },      // moderno, reemplaza Vuex
+  { name: 'Zustand', hot: true },    // moderno, reemplaza Redux
+  { name: 'Symfony (PHP)', hot: false },
+  { name: 'Node.js', hot: true },    // backend JS estándar
+  { name: 'Express', hot: false },
+  { name: 'REST APIs', hot: false },
+  { name: 'Git', hot: false },
+  { name: 'GitLab CI / GitHub Actions', hot: true }, // CI/CD diferenciador
+  { name: 'Docker', hot: true },     // DevOps must-have
+  { name: 'Unit Testing', hot: false },
+  { name: 'Integration Testing', hot: false },
   { name: 'Figma', hot: false },
+  { name: 'Jira', hot: false },
+  { name: 'Photoshop', hot: false },
+  { name: 'Cursor', hot: true },     // AI dev tools = diferenciación
+  { name: 'Claude', hot: true },
+  { name: 'ChatGPT / Gemini', hot: true },
 ];
