@@ -27,6 +27,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   /* Offset anchor links to account for the fixed navbar (~80px) */
@@ -38,6 +39,7 @@
     @apply bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary;
     background-image: radial-gradient(#ffffff10 1px, transparent 0);
     background-size: 24px 24px;
+    overflow-x: hidden;
   }
 
   .dot-matrix {
