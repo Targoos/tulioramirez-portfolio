@@ -5,7 +5,6 @@ import type { IconLink } from "@/types";
 const SOCIAL_LINKS: IconLink[] = [
   { icon: Github, href: "#", label: "GitHub" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
 ];
 
 export function Footer() {

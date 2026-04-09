@@ -156,23 +156,23 @@ export function ChatBubble() {
       </AnimatePresence>
 
       {/* Trigger area */}
-      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 flex items-center justify-end gap-2 sm:gap-3 pointer-events-none">
+      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-2 sm:gap-3 pointer-events-none">
         {/* Tooltip bubble */}
         <AnimatePresence>
           {!isOpen && (
             <motion.div
               key="tooltip"
-              initial={{ opacity: 0, x: 10, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 10, scale: 0.9 }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ delay: 2, duration: 0.4, ease: EASE }}
-              className="flex items-center pointer-events-auto origin-right cursor-pointer"
+              className="flex flex-col items-end pointer-events-auto origin-bottom cursor-pointer"
               onClick={() => setIsOpen(true)}
             >
               <div className="bg-surface border border-primary px-3 py-1.5 font-label text-xs uppercase tracking-widest text-primary shadow-[2px_2px_0px_#E8FF47] hover:bg-primary hover:text-on-primary transition-colors">
                 {t.chat.tooltip}
               </div>
-              <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[6px] border-l-primary -ml-[1px]" />
+              <div className="w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-primary -mt-[1px] mr-[22px]" />
             </motion.div>
           )}
         </AnimatePresence>
