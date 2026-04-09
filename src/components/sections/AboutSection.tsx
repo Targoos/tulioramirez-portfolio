@@ -33,9 +33,9 @@ export function AboutSection() {
           {STAT_VALS.map((val, i) => (
             <div
               key={val}
-              className="bg-background p-8 aspect-square flex flex-col justify-between hover:bg-surface transition-colors"
+              className="bg-background p-6 md:p-8 flex flex-col justify-between h-full w-full md:aspect-square hover:bg-surface transition-colors"
             >
-              <dd className="font-headline text-6xl text-primary leading-none">{val}</dd>
+              <dd className="font-headline text-5xl md:text-6xl text-primary leading-none">{val}</dd>
               <dt className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
                 {t.about.stats[i]}
               </dt>
