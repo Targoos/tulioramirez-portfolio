@@ -7,6 +7,7 @@ export interface Project {
   tags: string[];
   image: string;
   status?: string;
+  link?: string;
 }
 
 export interface TechItem {
