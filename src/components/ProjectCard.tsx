@@ -7,16 +7,15 @@ interface ProjectCardProps {
   project: Project;
 }
 
-export const ProjectCard = memo(function ProjectCard({ project }: ProjectCardProps) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="group relative aspect-square bg-surface overflow-hidden p-8 flex flex-col justify-between border border-outline-variant/10"
-    >
+export const ProjectCard = memo(function ProjectCard({
+  project,
+}: ProjectCardProps) {
+  const cardContent = (
+    <>
       <div className="flex justify-between items-start z-10">
-        <span className="font-headline text-4xl text-outline">{project.id}</span>
+        <span className="font-headline text-4xl text-outline">
+          {project.id}
+        </span>
         {project.status && (
           <span className="px-3 py-1 bg-secondary text-on-primary font-label text-[10px] uppercase tracking-widest">
             {project.status}
@@ -60,6 +59,29 @@ export const ProjectCard = memo(function ProjectCard({ project }: ProjectCardPro
       >
         <ArrowUpRight className="text-primary" size={40} />
       </div>
+    </>
+  );
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative aspect-square bg-surface overflow-hidden p-8 flex flex-col justify-between border border-outline-variant/10"
+    >
+      {project.link ? (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute inset-0 z-30"
+          aria-label={`View ${project.title} project`}
+        >
+          {cardContent}
+        </a>
+      ) : (
+        cardContent
+      )}
     </motion.article>
   );
 });
